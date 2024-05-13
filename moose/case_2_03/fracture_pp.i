@@ -317,6 +317,10 @@ output_only_selected_timesteps = true
     order = CONSTANT
     family = MONOMIAL
   []
+  [one]
+    order = CONSTANT
+    family = MONOMIAL
+  []
 []
 [AuxKernels]
   [normal_dir_x_auxkernel]
@@ -424,6 +428,11 @@ output_only_selected_timesteps = true
     type = MaterialRealAux
     property = PorousFlow_relative_permeability_qp1
     variable = relative_permeability_gas_aux
+  []
+  [one]
+    type = ConstantAux
+    variable = one
+    value = 1
   []
 []
 [Materials]
@@ -708,6 +717,16 @@ output_only_selected_timesteps = true
     type = PointValue
     point = ${injection_point}
     variable = fracture_enthalpy_gas
+    outputs = csv
+  []
+  [total_area]
+    type = ElementIntegralVariablePostprocessor
+    variable = one
+    outputs = csv
+  []
+  [gas_swept_area]
+    type = ElementIntegralVariablePostprocessor
+    variable = fracture_saturation_gas
     outputs = csv
   []
 []
